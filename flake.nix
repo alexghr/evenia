@@ -16,12 +16,6 @@
         mysqlHost = "mysql@b1";
         localSocket = "/tmp/mysql.sock";
         remoteSocket = "/var/run/mysqld/mysqld.sock";
-        # bind remote socket locally
-        mysqltunnel = pkgs.writeShellScriptBin "mysqltunnel" ''
-          #!/usr/bin/env bash
-          rm -f ${localSocket}
-          ${pkgs.openssh}/bin/ssh -N -L ${localSocket}:${remoteSocket} ${mysqlHost}
-        '';
         # wrapper shell script to use local socket
         mysql = pkgs.writeShellScriptBin "mysql" ''
           #!/usr/bin/env bash
@@ -33,9 +27,13 @@
             buildInputs = [
               pkgs.nodejs-18_x
               pkgs.corepack
-              mysqltunnel
               mysql
             ];
+
+            shellHook = ''
+              trap 'pkill -f ${localSocket}; rm ${localSocket}' EXIT
+              ${pkgs.openssh}/bin/ssh -N -f -L ${localSocket}:${remoteSocket} ${mysqlHost}
+            '';
           };
         }
     );
