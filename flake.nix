@@ -12,12 +12,29 @@
           inherit system;
           overlays = [ corepack.overlays.default ];
         };
+        # remote host running MySQL (MariaDB)
+        mysqlHost = "mysql@b1";
+        localSocket = "/tmp/mysql.sock";
+        remoteSocket = "/var/run/mysqld/mysqld.sock";
+        # bind remote socket locally
+        mysqltunnel = pkgs.writeShellScriptBin "mysqltunnel" ''
+          #!/usr/bin/env bash
+          rm -f ${localSocket}
+          ${pkgs.openssh}/bin/ssh -N -L ${localSocket}:${remoteSocket} ${mysqlHost}
+        '';
+        # wrapper shell script to use local socket
+        mysql = pkgs.writeShellScriptBin "mysql" ''
+          #!/usr/bin/env bash
+          ${pkgs.mysql}/bin/mysql --socket=${localSocket} "$@"
+        '';
       in
         {
           devShells.default = pkgs.mkShell {
             buildInputs = [
               pkgs.nodejs-18_x
               pkgs.corepack
+              mysqltunnel
+              mysql
             ];
           };
         }
