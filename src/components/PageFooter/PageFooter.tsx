@@ -14,7 +14,7 @@ const PageFooter: FC = () => {
         <nav className={styles.nav}>
           <ul className={styles.links}>
             {footerLinks.map(({ href, label, rel = "", target = "_self" }) => (
-              <li key={href}>
+              <li key={href + ":" + label}>
                 <Link
                   className={styles.link}
                   href={href}
