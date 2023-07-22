@@ -1,19 +1,17 @@
-import { FC } from "react";
-import styles from "./PageHeader.module.scss";
 import Link from "next/link";
+import { FC } from "react";
 import TextInput from "../TextInput/TextInput";
-import Button from "../Button/Button";
-import Image from "next/image";
-import Logo from "../../../public/evenia.png";
+import styles from "./PageHeader.module.scss";
+// import Logo from "../../../public/evenia.png";
 import LinkButton from "../Button/LinkButton";
+import Logo from "../Logo/Logo";
 
 const PageHeader: FC = () => {
   return (
     <header className={styles.header}>
       <div className={styles.wrapper}>
-        <Link href="/" className={styles.logo}>
-          <Image src={Logo} alt="Evenia" />
-          <span>Evenia</span>
+        <Link href="/" className={styles.logo} title="Home">
+          <Logo />
         </Link>
         <div className={styles.search}>
           <TextInput type="text" placeholder="Search" />
