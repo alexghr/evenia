@@ -1,0 +1,7 @@
+@import "index.scss";
+
+body {
+  @include bodyDefault;
+  background-color: $color-pure-white;
+  color: $color-pure-black;
+}

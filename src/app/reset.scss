@@ -1,0 +1,65 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd,
+time,
+address {
+  margin: 0;
+  font-weight: inherit;
+  font-style: inherit;
+}
+
+input,
+input::placeholder,
+button,
+textarea,
+select {
+  font: inherit;
+  line-height: inherit;
+}
+
+button {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  line-height: inherit;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+img,
+figure {
+  border: 0;
+  display: block;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}

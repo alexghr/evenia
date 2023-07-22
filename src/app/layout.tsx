@@ -1,11 +1,18 @@
+import "./reset.scss";
 import "./global.scss";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
+import PageHeader from "@/components/PageHeader/PageHeader";
+import PageFooter from "@/components/PageFooter/PageFooter";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "600"],
+  fallback: ["sans-serif"],
+});
 
 export const metadata: Metadata = {
-  title: "Events Management",
+  title: "Evenia",
   description: "Manage your events",
 };
 
@@ -16,7 +23,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={poppins.className}>
+        <PageHeader />
+        {children}
+        <PageFooter />
+      </body>
     </html>
   );
 }

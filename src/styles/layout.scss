@@ -1,0 +1,9 @@
+// MBP 16" viewport
+$page-max-width: 1728px;
+$page-horizontal-padding: 5rem;
+
+@mixin container {
+  max-width: $page-max-width;
+  margin: 0 auto;
+  padding: 0 $page-horizontal-padding;
+}
