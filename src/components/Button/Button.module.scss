@@ -1,0 +1,14 @@
+@import "index.scss";
+
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: $border-radius;
+
+  background-color: $color-majorelle-blue;
+  color: $color-pure-white;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}

@@ -1,9 +1,11 @@
-import { FC, HTMLProps } from "react";
+import { ButtonHTMLAttributes, FC, HTMLProps } from "react";
 import styles from "./Button.module.scss";
 
-const Button: FC<
-  HTMLProps<HTMLButtonElement> & { type?: "button" | "submit" | "reset" }
-> = ({ className = "", type = "button", ...props }) => {
+const Button: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
+  className = "",
+  type = "button",
+  ...props
+}) => {
   return (
     <button
       {...props}

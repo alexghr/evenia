@@ -5,6 +5,7 @@ import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
 import Image from "next/image";
 import Logo from "../../../public/evenia.png";
+import LinkButton from "../Button/LinkButton";
 
 const PageHeader: FC = () => {
   return (
@@ -18,7 +19,7 @@ const PageHeader: FC = () => {
           <TextInput type="text" placeholder="Search" />
         </div>
         <div className={styles.auth}>
-          <Button>Connect</Button>
+          <LinkButton href="/auth/signIn">Connect</LinkButton>
         </div>
       </div>
     </header>
