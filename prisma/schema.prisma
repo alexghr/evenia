@@ -16,4 +16,5 @@ model Event {
   date DateTime
   location String
   description String
+  imageUrl String?
 }
