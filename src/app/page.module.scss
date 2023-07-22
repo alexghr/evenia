@@ -1,7 +1,37 @@
 @import "index.scss";
 
+.pageLayout {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  align-items: stretch;
+}
+
+$margin: 3rem;
+
 .main {
-  max-width: $page-max-width;
-  padding: 0 $page-horizontal-padding;
-  margin: 0 auto;
+  @include container;
+  margin-top: $margin;
+  margin-bottom: $margin;
+  flex: 1 100%;
+  width: 100%;
+}
+
+.events {
+  display: grid;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  grid-template-columns: repeat(auto-fill, var(--card-width, minmax(300px, 1fr)));
+  justify-content: space-between;
+  gap: $margin;
+}
+
+.title {
+  margin-bottom: $margin;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
 }

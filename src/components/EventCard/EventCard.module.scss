@@ -1,0 +1,27 @@
+@import "index.scss";
+
+.card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  flex-flow: column nowrap;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.imageWrapper > img {
+  object-fit: cover;
+}
+
+.bodyWrapper {
+  padding: 1rem;
+}
+
+.date {
+  color: $color-dark-grey;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}

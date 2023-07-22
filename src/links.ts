@@ -23,3 +23,5 @@ export const footerLinks: readonly FooterLink[] = [
     label: "Explore event",
   },
 ];
+
+export const eventLink = (id: number) => `/event/${id}`;

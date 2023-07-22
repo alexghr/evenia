@@ -1,24 +1,42 @@
 import { PrismaClient } from "@prisma/client";
 import styles from "./page.module.scss";
+import EventCard, { cardWidthPx } from "@/components/EventCard/EventCard";
+import Link from "next/link";
+import { eventLink } from "@/links";
+import PageHeader from "@/components/PageHeader/PageHeader";
+import PageFooter from "@/components/PageFooter/PageFooter";
 
 async function getData() {
   const client = new PrismaClient();
   return client.event.findMany();
 }
 
-export default async function Home() {
+export default async function Home({
+  params: { lang },
+}: {
+  params: { lang: string };
+}) {
   const events = await getData();
 
   return (
-    <main className={styles.main}>
-      <h1>Events</h1>
-      <ul>
-        {events.map((event) => (
-          <li key={event.id}>
-            {event.name} ({event.date.toString()})
-          </li>
-        ))}
-      </ul>
-    </main>
+    <div className={styles.pageLayout}>
+      <PageHeader />
+      <main className={styles.main}>
+        <h1 className={styles.title}>Our events</h1>
+        <ol
+          className={styles.events}
+          style={{ "--card-width": cardWidthPx + "px" } as any}
+        >
+          {events.map((event) => (
+            <li key={event.id}>
+              <Link className={styles.link} href={eventLink(event.id)}>
+                <EventCard {...event} locale={lang} />
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </main>
+      <PageFooter />
+    </div>
   );
 }
