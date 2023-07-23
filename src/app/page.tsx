@@ -1,14 +1,13 @@
-import { PrismaClient } from "@prisma/client";
 import styles from "./page.module.scss";
 import EventCard, { cardWidthPx } from "@/components/EventCard/EventCard";
 import Link from "next/link";
 import { eventLink } from "@/links";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import PageFooter from "@/components/PageFooter/PageFooter";
+import prismaClient from "@/prismaClient";
 
 async function getData() {
-  const client = new PrismaClient();
-  return client.event.findMany();
+  return prismaClient.event.findMany();
 }
 
 export default async function Home({
