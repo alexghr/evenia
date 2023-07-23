@@ -2,8 +2,8 @@ import "./reset.scss";
 import "./global.scss";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import PageHeader from "@/components/PageHeader/PageHeader";
 import PageFooter from "@/components/PageFooter/PageFooter";
+import styles from "./layout.module.scss";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,7 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className + " " + styles.pageLayout}>
+        <div className={styles.stretch}>{children}</div>
+        <PageFooter />
+      </body>
     </html>
   );
 }

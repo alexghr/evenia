@@ -19,7 +19,7 @@ export default async function Home({
   const events = await getData();
 
   return (
-    <div className={styles.pageLayout}>
+    <>
       <PageHeader />
       <main className={styles.main}>
         <h1 className={styles.title}>Our events</h1>
@@ -36,7 +36,6 @@ export default async function Home({
           ))}
         </ol>
       </main>
-      <PageFooter />
-    </div>
+    </>
   );
 }

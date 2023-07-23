@@ -1,18 +1,11 @@
 @import "index.scss";
 
 $margin: 3rem;
-.pageLayout {
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100%;
-  align-items: stretch;
-  gap: 3rem;
-}
 
 .main {
   @include container;
-  flex: 1 100%;
-  width: 100%;
+  margin: $margin auto;
+  flex: 1;
 }
 
 .events {
