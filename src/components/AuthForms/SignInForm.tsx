@@ -6,6 +6,8 @@ import Button from "../Button/Button";
 import styles from "./Form.module.scss";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { authLinks } from "@/links";
 
 type Fields = {
   email: string;
@@ -39,6 +41,11 @@ const SignInForm: FC = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={styles.title}>Sign In</h1>
+
+      <p>
+        Don&lsquo;t have an account?{" "}
+        <Link href={authLinks.signUp}>Sign up now</Link>
+      </p>
 
       <div className={styles.field}>
         <label htmlFor={ids.email}>Email</label>

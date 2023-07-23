@@ -5,6 +5,8 @@ import TextInput from "../TextInput/TextInput";
 import Button from "../Button/Button";
 import styles from "./Form.module.scss";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { authLinks } from "@/links";
 
 type Fields = {
   email: string;
@@ -48,6 +50,11 @@ const SignUpForm: FC = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={styles.title}>Sign up</h1>
+
+      <p>
+        Already have an account?{" "}
+        <Link href={authLinks.signIn}>Sign in here</Link>
+      </p>
 
       <div className={styles.field}>
         <label htmlFor={ids.name}>Name</label>

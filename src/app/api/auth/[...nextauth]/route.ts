@@ -2,11 +2,12 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import argon2 from "argon2";
 import prismaClient from "@/prismaClient";
+import { authLinks } from "@/links";
 
 const handler = NextAuth({
   pages: {
-    signIn: "/signIn",
-    newUser: "/signUp",
+    signIn: authLinks.signIn,
+    newUser: authLinks.signUp,
   },
   providers: [
     CredentialsProvider({
