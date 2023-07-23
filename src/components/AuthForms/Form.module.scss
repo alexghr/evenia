@@ -1,3 +1,5 @@
+@import "index.scss";
+
 .form {
   max-width: 500px;
   display: flex;
@@ -9,4 +11,8 @@
 .field > label {
   display: block;
   margin-bottom: 0.5rem;
+}
+
+.formError {
+  color: $color-portland-orange;
 }

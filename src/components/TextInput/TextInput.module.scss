@@ -8,4 +8,9 @@
   border: 0;
   border-radius: $border-radius;
   background-color: $color-light-grey;
+  border: 1px solid transparent;
+}
+
+.input:invalid:not(:focus)[data-dirty="true"] {
+  border: 1px solid $color-portland-orange;
 }

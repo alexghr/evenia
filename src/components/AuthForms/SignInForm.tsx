@@ -15,7 +15,7 @@ type Fields = {
 const SignInForm: FC = () => {
   const qs = useSearchParams();
   const router = useRouter();
-  const { register, handleSubmit } = useForm<Fields>({});
+  const { register, handleSubmit, setError, formState } = useForm<Fields>({});
   const ids = {
     email: useId(),
     password: useId(),
@@ -27,7 +27,11 @@ const SignInForm: FC = () => {
       redirect: false,
     });
 
-    if (resp?.ok) {
+    console.log(resp);
+
+    if (resp?.error) {
+      setError("root", { message: "Email or password is incorrect" });
+    } else {
       router.replace(qs.get("callbackUrl") ?? "/");
     }
   };
@@ -42,6 +46,7 @@ const SignInForm: FC = () => {
           {...register("email")}
           id={ids.email}
           type="email"
+          data-dirty={formState.dirtyFields.email}
           required
         />
       </div>
@@ -52,6 +57,7 @@ const SignInForm: FC = () => {
           {...register("password")}
           id={ids.password}
           type="password"
+          data-dirty={formState.dirtyFields.password}
           required
         />
       </div>
@@ -59,6 +65,10 @@ const SignInForm: FC = () => {
       <Button className={styles.submit} type="submit">
         Sign Up
       </Button>
+
+      {formState.errors.root && (
+        <p className={styles.formError}>{formState.errors.root.message}</p>
+      )}
     </form>
   );
 };

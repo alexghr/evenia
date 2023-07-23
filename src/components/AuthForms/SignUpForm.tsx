@@ -13,7 +13,7 @@ type Fields = {
 };
 
 const SignUpForm: FC = () => {
-  const { register, handleSubmit } = useForm<Fields>({});
+  const { register, handleSubmit, formState, setError } = useForm<Fields>({});
   const ids = {
     name: useId(),
     email: useId(),
@@ -22,10 +22,10 @@ const SignUpForm: FC = () => {
 
   const onSubmit = async (data: Fields) => {
     await fetch("/api/auth/signUp", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify(data),
+     });
 
     await signIn("credentials", {
       email: data.email,
@@ -65,6 +65,10 @@ const SignUpForm: FC = () => {
       <Button className={styles.submit} type="submit">
         Sign Up
       </Button>
+
+      {formState.errors.root && (
+        <p className={styles.formError}>{formState.errors.root.message}</p>
+      )}
     </form>
   );
 };
