@@ -21,16 +21,28 @@ const SignUpForm: FC = () => {
   };
 
   const onSubmit = async (data: Fields) => {
-    await fetch("/api/auth/signUp", {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify(data),
-     });
-
-    await signIn("credentials", {
-      email: data.email,
-      password: data.password,
+    const resp = await fetch("/api/auth/signUp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
+
+    if (resp.status === 409) {
+      setError("root", {
+        message: "Email already used",
+      });
+    } else if (resp.status !== 204) {
+      setError("root", {
+        message: "Couldn't create account. Please try again",
+      });
+    } else if (resp.status === 204) {
+      await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        callbackUrl: "/",
+        redirect: true,
+      });
+    }
   };
 
   return (
@@ -39,7 +51,13 @@ const SignUpForm: FC = () => {
 
       <div className={styles.field}>
         <label htmlFor={ids.name}>Name</label>
-        <TextInput {...register("name")} id={ids.name} type="text" required />
+        <TextInput
+          {...register("name")}
+          id={ids.name}
+          type="text"
+          required
+          data-dirty={formState.dirtyFields.name}
+        />
       </div>
 
       <div className={styles.field}>
@@ -49,6 +67,7 @@ const SignUpForm: FC = () => {
           id={ids.email}
           type="email"
           required
+          data-dirty={formState.dirtyFields.email}
         />
       </div>
 
@@ -59,6 +78,7 @@ const SignUpForm: FC = () => {
           id={ids.password}
           type="password"
           required
+          data-dirty={formState.dirtyFields.password}
         />
       </div>
 

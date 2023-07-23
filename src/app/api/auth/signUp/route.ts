@@ -1,4 +1,5 @@
 import prismaClient from "@/prismaClient";
+import { Prisma } from "@prisma/client";
 import argon2 from "argon2";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -13,15 +14,27 @@ export const POST = async (req: NextRequest) => {
 
   const hashedPassword = await argon2.hash(password);
 
-  await prismaClient.user.create({
-    data: {
-      name,
-      email,
-      password: hashedPassword,
-    },
-  });
+  try {
+    const user = await prismaClient.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+      },
+    });
 
-  return new NextResponse(null, {
-    status: 204,
-  });
+    return new NextResponse(null, {
+      status: 204,
+    });
+  } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      // unique constraint failed, aka duplicate email
+      return new NextResponse(null, {
+        status: 409,
+      });
+    }
+  }
 };
