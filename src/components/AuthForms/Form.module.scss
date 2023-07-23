@@ -1,0 +1,12 @@
+.form {
+  max-width: 500px;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 3rem auto;
+  gap: 3rem;
+}
+
+.field > label {
+  display: block;
+  margin-bottom: 0.5rem;
+}

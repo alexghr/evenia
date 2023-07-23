@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import PageFooter from "@/components/PageFooter/PageFooter";
 import styles from "./layout.module.scss";
+import Providers from "@/components/Providers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,11 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={poppins.className + " " + styles.pageLayout}>
-        <div className={styles.stretch}>{children}</div>
-        <PageFooter />
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={poppins.className + " " + styles.pageLayout}>
+          <div className={styles.stretch}>{children}</div>
+          <PageFooter />
+        </body>
+      </html>
+    </Providers>
   );
 }

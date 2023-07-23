@@ -2,9 +2,8 @@ import Link from "next/link";
 import { FC } from "react";
 import TextInput from "../TextInput/TextInput";
 import styles from "./PageHeader.module.scss";
-// import Logo from "../../../public/evenia.png";
-import LinkButton from "../Button/LinkButton";
 import Logo from "../Logo/Logo";
+import Session from "./Session";
 
 const PageHeader: FC = () => {
   return (
@@ -17,7 +16,7 @@ const PageHeader: FC = () => {
           <TextInput type="text" placeholder="Search" />
         </div>
         <div className={styles.auth}>
-          <LinkButton href="/auth/signIn">Connect</LinkButton>
+          <Session />
         </div>
       </div>
     </header>
