@@ -63,7 +63,7 @@ const SignInForm: FC = () => {
       </div>
 
       <Button className={styles.submit} type="submit">
-        Sign Up
+        Sign In
       </Button>
 
       {formState.errors.root && (
