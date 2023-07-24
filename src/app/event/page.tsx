@@ -28,7 +28,7 @@ export default function CreateEventPage() {
     const imageBase64 =
       data.image.length > 0 ? await fileToBase64(data.image[0]) : null;
 
-    const resp = await fetch("/api/event", {
+    const resp = await fetch("/api/events", {
       method: "POST",
       body: JSON.stringify({
         name: data.name,

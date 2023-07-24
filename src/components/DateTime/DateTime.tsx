@@ -3,7 +3,7 @@ import React, { HTMLProps, useMemo } from "react";
 type Props = Omit<HTMLProps<HTMLTimeElement>, "value"> & {
   options?: Intl.DateTimeFormatOptions;
   locale?: string;
-  value: Date;
+  value: Date | string;
 };
 
 const DateTime: React.FC<Props> & {
@@ -19,9 +19,10 @@ const DateTime: React.FC<Props> & {
     [locale, options]
   );
 
+  const date = new Date(value);
   return (
-    <time dateTime={value.toISOString()} {...props}>
-      {formatter.format(value)}
+    <time dateTime={date.toISOString()} {...props}>
+      {formatter.format(date)}
     </time>
   );
 };

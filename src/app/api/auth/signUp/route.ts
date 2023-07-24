@@ -1,4 +1,4 @@
-import prismaClient from "@/prismaClient";
+import getPrismaClient from "@/prismaClient";
 import { Prisma } from "@prisma/client";
 import argon2 from "argon2";
 import { NextRequest, NextResponse } from "next/server";
@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
   const hashedPassword = await argon2.hash(password);
 
   try {
-    const user = await prismaClient.user.create({
+    const user = await getPrismaClient().user.create({
       data: {
         name,
         email,

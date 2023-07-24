@@ -1,14 +1,22 @@
-import prismaClient from "@/prismaClient";
-import { Prisma } from "@prisma/client";
+import getPrismaClient from "@/prismaClient";
 import { UploadClient } from "@uploadcare/upload-client";
-import argon2 from "argon2";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
 
+export const GET = async (req: NextRequest) => {
+  console.log("events");
+  const events = await getPrismaClient().event.findMany();
+  return new NextResponse(JSON.stringify(events), {
+    status: 200,
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+};
+
 export const POST = async (req: NextRequest) => {
   const sess = await getServerSession(authOptions);
-  console.log({ sess });
   if (!sess) {
     return new NextResponse(null, {
       status: 401,
@@ -50,7 +58,7 @@ export const POST = async (req: NextRequest) => {
       }
     }
 
-    const event = await prismaClient.event.create({
+    const event = await getPrismaClient().event.create({
       data: {
         date: new Date(date),
         description,
@@ -62,6 +70,9 @@ export const POST = async (req: NextRequest) => {
 
     return new NextResponse(JSON.stringify(event), {
       status: 201,
+      headers: {
+        "content-type": "application/json",
+      },
     });
   } catch (err) {
     console.error(err);

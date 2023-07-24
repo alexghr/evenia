@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import argon2 from "argon2";
-import prismaClient from "@/prismaClient";
 import { authLinks } from "@/links";
+import getPrismaClient from "@/prismaClient";
 
 export const authOptions = NextAuth({
   pages: {
@@ -25,7 +25,7 @@ export const authOptions = NextAuth({
           return null;
         }
 
-        const user = await prismaClient.user.findUnique({
+        const user = await getPrismaClient().user.findUnique({
           where: { email: credentials.email },
         });
 

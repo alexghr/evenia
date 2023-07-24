@@ -1,9 +1,9 @@
 import Button from "@/components/Button/Button";
 import DateTime from "@/components/DateTime/DateTime";
 import PageHeader from "@/components/PageHeader/PageHeader";
+import getPrismaClient from "@/prismaClient";
 import Image from "next/image";
 import styles from "./page.module.scss";
-import prismaClient from "@/prismaClient";
 export default async function EventPage({
   params: { id },
 }: {
@@ -12,7 +12,7 @@ export default async function EventPage({
   const parsedId = parseInt(id, 10);
 
   const event = await (Number.isFinite(parsedId)
-    ? prismaClient.event.findFirst({
+    ? getPrismaClient().event.findFirst({
         where: {
           id: parsedId,
         },
