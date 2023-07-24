@@ -9,6 +9,7 @@ import Button from "@/components/Button/Button";
 import FileInput from "@/components/FileInput/FileInput";
 import { useRouter } from "next/navigation";
 import { eventLinks } from "@/links";
+import { signIn, useSession } from "next-auth/react";
 
 type Fields = {
   name: string;
@@ -21,6 +22,7 @@ type Fields = {
 export default function CreateEventPage() {
   const { register, handleSubmit } = useForm<Fields>({});
   const router = useRouter();
+  const sess = useSession();
 
   const onSubmit = async (data: Fields) => {
     const imageBase64 =
@@ -50,47 +52,55 @@ export default function CreateEventPage() {
     <>
       <PageHeader />
       <main className={styles.main}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Event</h1>
-          <p>Please fill all the required information</p>
-          <div className={styles.columns}>
-            <FileInput
-              {...register("image")}
-              placeholder={<>Click to upload</>}
-              preview={(files) => {
-                const first = files[0];
-                return <img src={URL.createObjectURL(first)} />;
-              }}
-            />
-            <div className={styles.right}>
-              <TextInput
-                {...register("name")}
-                required
-                placeholder="Event title"
+        {sess.status === "authenticated" && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Event</h1>
+            <p>Please fill all the required information</p>
+            <div className={styles.columns}>
+              <FileInput
+                {...register("image")}
+                placeholder={<>Click to upload</>}
+                preview={(files) => {
+                  const first = files[0];
+                  return <img src={URL.createObjectURL(first)} />;
+                }}
               />
-              <TextArea
-                {...register("description")}
-                required
-                placeholder="Description"
-                className={styles.description}
-              />
-              <TextInput
-                {...register("date")}
-                type="datetime-local"
-                required
-                placeholder="Date"
-              />
-              <TextInput
-                {...register("location")}
-                required
-                placeholder="Location"
-              />
+              <div className={styles.right}>
+                <TextInput
+                  {...register("name")}
+                  required
+                  placeholder="Event title"
+                />
+                <TextArea
+                  {...register("description")}
+                  required
+                  placeholder="Description"
+                  className={styles.description}
+                />
+                <TextInput
+                  {...register("date")}
+                  type="datetime-local"
+                  required
+                  placeholder="Date"
+                />
+                <TextInput
+                  {...register("location")}
+                  required
+                  placeholder="Location"
+                />
+              </div>
+              <Button className={styles.submit} type="submit">
+                Continue
+              </Button>
             </div>
-            <Button className={styles.submit} type="submit">
-              Continue
-            </Button>
-          </div>
-        </form>
+          </form>
+        )}
+        {sess.status === "unauthenticated" && (
+          <>
+            <p>You need to be authenticated before you can submit an event.</p>
+            <Button onClick={() => signIn()}>Sign in</Button>
+          </>
+        )}
       </main>
     </>
   );
