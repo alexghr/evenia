@@ -1,10 +1,9 @@
-import styles from "./page.module.scss";
 import EventCard, { cardWidthPx } from "@/components/EventCard/EventCard";
-import Link from "next/link";
-import { eventLink } from "@/links";
 import PageHeader from "@/components/PageHeader/PageHeader";
-import PageFooter from "@/components/PageFooter/PageFooter";
+import { eventLinks } from "@/links";
 import prismaClient from "@/prismaClient";
+import Link from "next/link";
+import styles from "./page.module.scss";
 
 async function getData() {
   return prismaClient.event.findMany();
@@ -28,7 +27,7 @@ export default async function Home({
         >
           {events.map((event) => (
             <li key={event.id}>
-              <Link className={styles.link} href={eventLink(event.id)}>
+              <Link className={styles.link} href={eventLinks.event(event.id)}>
                 <EventCard {...event} locale={lang} />
               </Link>
             </li>

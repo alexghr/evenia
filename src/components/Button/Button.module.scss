@@ -5,10 +5,20 @@
   padding: 0.75rem 1.25rem;
   border-radius: $border-radius;
 
-  background-color: $color-majorelle-blue;
-  color: $color-pure-white;
-
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
+
+  border: 1px solid transparent;
+}
+
+.primary {
+  background-color: $color-majorelle-blue;
+  color: $color-pure-white;
+}
+
+.secondary {
+  color: $color-majorelle-blue;
+  border-color: currentColor;
 }

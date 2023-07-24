@@ -24,7 +24,10 @@ export const footerLinks: readonly FooterLink[] = [
   },
 ];
 
-export const eventLink = (id: number) => `/event/${id}`;
+export const eventLinks = {
+  create: "/event",
+  event: (id: number) => `/event/${id}`,
+};
 
 export const authLinks = {
   signIn: "/signIn",
