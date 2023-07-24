@@ -14,7 +14,7 @@ const imageHeightPx = (210 / 16) * 9;
 const EventCard: FC<Props> = ({ name, date, imageUrl, locale }) => {
   return (
     <article className={styles.card} style={{ width: cardWidthPx }}>
-      <div className={styles.imageWrapper}>
+      <div className={styles.imageWrapper} style={{ height: imageHeightPx }}>
         {imageUrl && (
           <Image
             src={imageUrl}
