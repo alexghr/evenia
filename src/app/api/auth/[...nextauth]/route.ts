@@ -4,7 +4,7 @@ import argon2 from "argon2";
 import prismaClient from "@/prismaClient";
 import { authLinks } from "@/links";
 
-const handler = NextAuth({
+export const authOptions = NextAuth({
   pages: {
     signIn: authLinks.signIn,
     newUser: authLinks.signUp,
@@ -43,4 +43,4 @@ const handler = NextAuth({
   ],
 });
 
-export { handler as GET, handler as POST };
+export { authOptions as GET, authOptions as POST };
