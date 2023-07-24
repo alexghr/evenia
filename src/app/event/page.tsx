@@ -62,7 +62,8 @@ export default function CreateEventPage() {
                 placeholder={<>Click to upload</>}
                 preview={(files) => {
                   const first = files[0];
-                  return <img src={URL.createObjectURL(first)} />;
+                  // eslint-disable-next-line @next/next/no-img-element
+                  return <img src={URL.createObjectURL(first)} alt="" />;
                 }}
               />
               <div className={styles.right}>
@@ -106,9 +107,7 @@ export default function CreateEventPage() {
   );
 }
 
-export function fileToBase64(
-  file: File | null | undefined
-): Promise<string | null> {
+function fileToBase64(file: File | null | undefined): Promise<string | null> {
   return new Promise((resolve) => {
     if (file) {
       const reader = new FileReader();
